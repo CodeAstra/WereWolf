@@ -18,7 +18,7 @@ class Game
   def simulate
     until over?
       night_mode
-      day_mode
+      day_mode unless over?
 
       puts "Status: #{villagers_count} Villagers & #{wolves_count} Wolves"
     end
