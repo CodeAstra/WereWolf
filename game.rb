@@ -4,6 +4,10 @@ require_relative 'villager'
 # game = Game.new(3, 9)
 # game.simulate
 class Game
+  DRAW = 0
+  WOLF = 1
+  VILLAGER = 2
+
   def initialize(no_of_wolves, no_of_villagers)
     @wolves = []
     no_of_wolves.times do
@@ -19,11 +23,11 @@ class Game
     until over?
       night_mode
       day_mode unless over?
-
-      puts "Status: #{villagers_count} Villagers & #{wolves_count} Wolves"
     end
 
-    declare_result
+    return DRAW if @draw
+
+    return villagers_alive.empty? ? WOLF : VILLAGER
   end
 
 private
@@ -31,27 +35,25 @@ private
     villagers_alive.empty? || wolves_alive.empty?
   end
 
-  def declare_result
-    if villagers_alive.empty?
-      puts "Wolves Win!"
-    else
-      puts "Villagers Win"
-    end
-  end
-
   def night_mode
     victim = @villagers.select(&:alive?).sample
     victim.kill!
-    puts "#{victim} got killed in night mode"
   end
 
   def day_mode
     victim = run_voting
-    victim.kill!
-    puts "#{victim} got killed in day mode"
+    if victim == DRAW
+      @draw = true
+    else
+      victim.kill!
+    end
   end
 
   def run_voting
+    if (villagers_count == 1 && wolves_count == 1)
+      return DRAW
+    end
+
     votes = Hash.new(0)
 
     wolves_alive.each do
@@ -92,5 +94,3 @@ private
     wolves_alive.count
   end
 end
-
-Game.new(3, 15).simulate
