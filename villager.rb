@@ -1,13 +1,4 @@
-class Villager
-  def initialize
-    @alive = true
-  end
+require_relative 'player'
 
-  def kill!
-    @alive = false
-  end
-
-  def alive?
-    @alive
-  end
+class Villager < Player
 end

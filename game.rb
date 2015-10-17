@@ -20,7 +20,7 @@ class Game
       night_mode
       day_mode
 
-      puts "Status: #{@villagers.select(&:alive?).count} Villagers & #{@wolves.select(&:alive?).count} Wolves"
+      puts "Status: #{villagers_count} Villagers & #{wolves_count} Wolves"
     end
 
     declare_result
@@ -28,11 +28,11 @@ class Game
 
 private
   def over?
-    @villagers.select(&:alive?).empty? || @wolves.select(&:alive?).empty?
+    villagers_alive.empty? || wolves_alive.empty?
   end
 
   def declare_result
-    if @villagers.select(&:alive?).empty?
+    if villagers_alive.empty?
       puts "Wolves Win!"
     else
       puts "Villagers Win"
@@ -45,6 +45,22 @@ private
 
   def day_mode
     (@villagers + @wolves).sample.kill!
+  end
+
+  def villagers_alive
+    @villagers.select(&:alive?)
+  end
+
+  def villagers_count
+    villagers_alive.count
+  end
+
+  def wolves_alive
+    @wolves.select(&:alive?)
+  end
+
+  def wolves_count
+    wolves_alive.count
   end
 end
 

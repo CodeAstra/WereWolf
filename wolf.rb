@@ -1,13 +1,4 @@
-class Wolf
-  def initialize
-    @alive = true
-  end
+require_relative 'player'
 
-  def kill!
-    @alive = false
-  end
-
-  def alive?
-    @alive
-  end
+class Wolf < Player
 end
