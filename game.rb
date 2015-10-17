@@ -40,7 +40,7 @@ private
   end
 
   def night_mode
-    @villagers.sample.kill!
+    @villagers.select(&:alive?).sample.kill!
   end
 
   def day_mode
