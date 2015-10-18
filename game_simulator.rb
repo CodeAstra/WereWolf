@@ -13,12 +13,6 @@ class GameSimulator
       wins[Game.new(@no_of_wolves, @no_of_villagers).simulate] += 1
     end
 
-    puts "Total Run:     #{@no_of_runs}"
-    puts "Wolves win:    #{wins[Game::WOLF]} times"
-    puts "Villagers win: #{wins[Game::VILLAGER]} times"
-    puts "No. of Draws:  #{wins[Game::DRAW]}"
-
+    return wins
   end
 end
-
-GameSimulator.new(3, 100, 100).run
