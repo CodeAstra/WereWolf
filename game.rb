@@ -31,9 +31,12 @@ private
     # Cop identifies a person
     cop = @players.cop
     cop.identify_a_player(@players) if cop
+    # Doctor chooses to save a person
+    doctor = @players.doctor
+    saved_person = doctor.choose_a_player_to_save(@players)
     # Wolves kill a villager
     victim = villagers_alive.sample
-    @players.kill(victim)
+    @players.kill(victim) unless victim == saved_person
   end
 
   def day_mode

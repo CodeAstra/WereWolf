@@ -33,7 +33,8 @@ private
   def best_case_description(wolves_count)
     msg = "The best case is: #{wolves_count} Wolves;"
     msg += " 1 Cop;"
-    msg += " #{@players_count - wolves_count - 1} Villagers" if @players_count - wolves_count > 1
+    msg += " 1 Doctor;" if @players_count - wolves_count > 1
+    msg += " #{@players_count - wolves_count - 2} Villagers" if @players_count - wolves_count > 2
   end
 end
 

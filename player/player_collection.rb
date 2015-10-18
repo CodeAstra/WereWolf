@@ -1,6 +1,7 @@
 require_relative 'wolf'
 require_relative 'villager'
 require_relative 'cop'
+require_relative 'doctor'
 
 class PlayerCollection
   def initialize(no_of_wolves, no_of_villagers)
@@ -17,6 +18,9 @@ class PlayerCollection
       if i == 1
         villager = Cop.new
         @cop = villager
+      elsif i == 2
+        villager = Doctor.new
+        @doctor = villager
       else
         villager = Villager.new
       end
@@ -51,5 +55,9 @@ class PlayerCollection
 
   def cop
     @cop
+  end
+
+  def doctor
+    @doctor
   end
 end
