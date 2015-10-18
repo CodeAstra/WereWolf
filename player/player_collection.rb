@@ -1,5 +1,6 @@
 require_relative 'wolf'
 require_relative 'villager'
+require_relative 'cop'
 
 class PlayerCollection
   def initialize(no_of_wolves, no_of_villagers)
@@ -12,8 +13,13 @@ class PlayerCollection
       @players.push(wolf)
     end
     @villagers  = []
-    no_of_villagers.times do
-      villager = Villager.new
+    (1..no_of_villagers).each do |i|
+      if i == 1
+        villager = Cop.new
+        @cop = villager
+      else
+        villager = Villager.new
+      end
       @villagers.push(villager)
       @players.push(villager)
     end
@@ -35,9 +41,15 @@ class PlayerCollection
     if player.is_a?(Wolf)
       collection = @wolves
     else
+      @cop = nil if player.is_a?(Cop)
       collection = @villagers
     end
     collection.delete(player)
     @players.delete(player)
+    @cop.forget(player) if @cop
+  end
+
+  def cop
+    @cop
   end
 end

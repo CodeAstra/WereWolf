@@ -28,6 +28,10 @@ private
   end
 
   def night_mode
+    # Cop identifies a person
+    cop = @players.cop
+    cop.identify_a_player(@players) if cop
+    # Wolves kill a villager
     victim = villagers_alive.sample
     @players.kill(victim)
   end
@@ -48,13 +52,9 @@ private
 
     votes = Hash.new(0)
 
-    wolves_alive.each do
-      player = villagers_alive.sample
-      votes[player] += 1
-    end
-    villagers_alive.each do |villager|
-      player = (players_alive - [villager]).sample
-      votes[player] += 1
+    players_alive.each do |player|
+      accused = player.accuse(@players)
+      votes[accused] += 1
     end
 
     max_votes = votes.values.max
