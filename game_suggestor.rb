@@ -21,13 +21,19 @@ class GameSuggestor
         best_wins = wins
         wolves_count += 1
       else
-        puts "The best case is #{wolves_count - 1} wolves and #{@players_count - wolves_count + 1} villagers."
+        puts best_case_description(wolves_count - 1)
         puts "Probability of Wolves Winning:    #{100.0*best_wins[Game::WOLF]/@no_of_runs}%"
         puts "Probability of Villagers Winning: #{100.0*best_wins[Game::VILLAGER]/@no_of_runs}%"
         puts "Probability of Draw:              #{100.0*best_wins[Game::DRAW]/@no_of_runs}%"
         break
       end
     end
+  end
+private
+  def best_case_description(wolves_count)
+    msg = "The best case is: #{wolves_count} Wolves;"
+    msg += " 1 Cop;"
+    msg += " #{@players_count - wolves_count - 1} Villagers" if @players_count - wolves_count > 1
   end
 end
 
