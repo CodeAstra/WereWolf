@@ -1,5 +1,4 @@
-require_relative 'wolf'
-require_relative 'villager'
+require_relative 'player_collection'
 
 # game = Game.new(3, 9)
 # game.simulate
@@ -9,14 +8,7 @@ class Game
   VILLAGER = 2
 
   def initialize(no_of_wolves, no_of_villagers)
-    @wolves = []
-    no_of_wolves.times do
-      @wolves.push(Wolf.new)
-    end
-    @villagers = []
-    no_of_villagers.times do
-      @villagers.push(Villager.new)
-    end
+    @players = PlayerCollection.new(no_of_wolves, no_of_villagers)
   end
 
   def simulate
@@ -37,7 +29,7 @@ private
 
   def night_mode
     victim = villagers_alive.sample
-    victim.kill!
+    @players.kill(victim)
   end
 
   def day_mode
@@ -45,7 +37,7 @@ private
     if victim == DRAW
       @draw = true
     else
-      victim.kill!
+      @players.kill(victim)
     end
   end
 
@@ -61,7 +53,7 @@ private
       votes[player] += 1
     end
     villagers_alive.each do |villager|
-      player = (villagers_alive + wolves_alive - [villager]).sample
+      player = (players_alive - [villager]).sample
       votes[player] += 1
     end
 
@@ -79,7 +71,7 @@ private
   end
 
   def villagers_alive
-    @villagers.select(&:alive?)
+    @players.alive_villagers
   end
 
   def villagers_count
@@ -87,10 +79,14 @@ private
   end
 
   def wolves_alive
-    @wolves.select(&:alive?)
+    @players.alive_wolves
   end
 
   def wolves_count
     wolves_alive.count
+  end
+
+  def players_alive
+    @players.alive_players
   end
 end
