@@ -36,7 +36,7 @@ private
   end
 
   def night_mode
-    victim = @villagers.select(&:alive?).sample
+    victim = villagers_alive.sample
     victim.kill!
   end
 
