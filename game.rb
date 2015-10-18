@@ -1,4 +1,4 @@
-require_relative 'player_collection'
+require_relative 'player/player_collection'
 
 # game = Game.new(3, 9)
 # game.simulate
