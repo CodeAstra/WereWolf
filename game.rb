@@ -35,8 +35,15 @@ private
     doctor = @players.doctor
     saved_person = doctor.choose_a_player_to_save(@players)
     # Wolves kill a villager
-    victim = villagers_alive.sample
-    @players.kill(victim) unless victim == saved_person
+    wolves_victim = villagers_alive.sample
+    # Rogue kills a players once in the entire game
+    rogue = @players.rogue
+    rogues_victim = rogue.choose_victim(@players) if rogue
+
+    # Don't kill the person if the doctor saved the person
+    @players.kill(wolves_victim) unless wolves_victim == saved_person
+    # Don't kill the person again, if the wolves have already killed the person
+    @players.kill(rogues_victim) unless (rogues_victim == saved_person) || (rogues_victim == wolves_victim)
   end
 
   def day_mode

@@ -3,8 +3,7 @@ require_relative 'wolf'
 class Cop < Villager
   def initialize
     super
-    @identified_wolves = []
-    @identified_villagers = []
+    forget_all
   end
 
   def identify_a_player(players)
@@ -22,6 +21,11 @@ class Cop < Villager
     else
       return (players.alive_players - [self] - @identified_villagers).sample
     end
+  end
+
+  def forget_all
+    @identified_wolves = []
+    @identified_villagers = []
   end
 
   def forget(player)

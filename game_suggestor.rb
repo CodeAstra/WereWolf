@@ -34,7 +34,8 @@ private
     msg = "The best case is: #{wolves_count} Wolves;"
     msg += " 1 Cop;"
     msg += " 1 Doctor;" if @players_count - wolves_count > 1
-    msg += " #{@players_count - wolves_count - 2} Villagers" if @players_count - wolves_count > 2
+    msg += " 1 Rogue;" if @players_count - wolves_count > 2
+    msg += " #{@players_count - wolves_count - 3} Villagers" if @players_count - wolves_count > 3
   end
 end
 

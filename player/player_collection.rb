@@ -2,6 +2,7 @@ require_relative 'wolf'
 require_relative 'villager'
 require_relative 'cop'
 require_relative 'doctor'
+require_relative 'rogue'
 
 class PlayerCollection
   def initialize(no_of_wolves, no_of_villagers)
@@ -21,6 +22,9 @@ class PlayerCollection
       elsif i == 2
         villager = Doctor.new
         @doctor = villager
+      elsif i == 3
+        villager = Rogue.new
+        @rogue = villager
       else
         villager = Villager.new
       end
@@ -44,8 +48,10 @@ class PlayerCollection
   def kill(player)
     if player.is_a?(Wolf)
       collection = @wolves
+      promote_rogue_to_wolf
     else
       @cop = nil if player.is_a?(Cop)
+      @rogue = nil if player.is_a?(Rogue)
       collection = @villagers
     end
     collection.delete(player)
@@ -59,5 +65,23 @@ class PlayerCollection
 
   def doctor
     @doctor
+  end
+
+  def rogue
+    @rogue
+  end
+
+private
+  def promote_rogue_to_wolf
+    return if @wolves.count > 0
+
+    if @rogue
+      kill(@rogue)
+      new_wolf = Wolf.new
+      @wolves.push(new_wolf)
+      @players.push(new_wolf)
+    end
+
+    @cop.forget_all!
   end
 end
