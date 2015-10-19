@@ -11,7 +11,7 @@ class Game
     @players = PlayerCollection.new(no_of_wolves, no_of_villagers)
   end
 
-  def simulate
+  def run
     until over?
       night_mode
       day_mode unless over?

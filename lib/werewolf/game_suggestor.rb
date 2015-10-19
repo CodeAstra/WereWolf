@@ -15,7 +15,7 @@ class GameSuggestor
     best_wins = {}
 
     while true
-      wins = GameSimulator.new(wolves_count, @players_count - wolves_count, @no_of_runs).run
+      wins = GameSimulator.new(wolves_count, @players_count - wolves_count, @no_of_runs).simulate
       percent_wolves_win = (100.0*wins[Game::WOLF]/@no_of_runs)
       new_diff = (pref_wolves_prob - percent_wolves_win).abs
       if new_diff < absolute_diff
@@ -40,5 +40,3 @@ private
     msg += " #{@players_count - wolves_count - 3} Villagers" if @players_count - wolves_count > 3
   end
 end
-
-GameSuggestor.new(12, 100).run
