@@ -23,20 +23,26 @@ class GameSuggestor
         best_wins = wins
         wolves_count += 1
       else
-        puts best_case_description(wolves_count - 1)
-        puts "Probability of Wolves Winning:    #{100.0*(best_wins[Game::WOLF] || 0)/@no_of_runs}%"
-        puts "Probability of Villagers Winning: #{100.0*(best_wins[Game::VILLAGER] || 0)/@no_of_runs}%"
-        puts "Probability of Draw:              #{100.0*(best_wins[Game::DRAW] || 0)/@no_of_runs}%"
-        break
+        return result(wolves_count - 1, best_wins)
       end
     end
   end
 private
-  def best_case_description(wolves_count)
-    msg = "The best case is: #{wolves_count} Wolves;"
-    msg += " 1 Cop;"
-    msg += " 1 Doctor;" if @players_count - wolves_count > 1
-    msg += " 1 Rogue;" if @players_count - wolves_count > 2
-    msg += " #{@players_count - wolves_count - 3} Villagers" if @players_count - wolves_count > 3
+  def result(wolves_count)
+    players = {}
+    players['wolves'] = wolves_count
+    players['cops'] = 1
+    players['doctors'] = 1 if @players_count - wolves_count > 1
+    players['rogues'] = 1 if @players_count - wolves_count > 2
+    players['villagers'] = (@players_count - wolves_count - 3) if @players_count - wolves_count > 3
+
+    probabilities = {}
+    probabilities['wolves_win'] = (100.0*(best_wins[Game::WOLF] || 0)/@no_of_runs})
+    probabilities['villagers_win'] = (100.0*(best_wins[Game::VILLAGER] || 0)/@no_of_runs})
+    probabilities['draws'] = (100.0*(best_wins[Game::DRAW] || 0)/@no_of_runs})
+
+    hsh = {players: players, probabilities: probabilities}
+
+    return hsh
   end
 end

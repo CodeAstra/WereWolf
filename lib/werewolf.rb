@@ -23,8 +23,9 @@ module Werewolf
       return simulator.simulate
     end
 
-    def suggest
-
+    def suggest(players_count, runs_count = 100)
+      suggestor = GameSuggestor.new(players_count, runs_count)
+      return suggestor.run
     end
   end
 end
