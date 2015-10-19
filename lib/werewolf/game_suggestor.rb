@@ -37,9 +37,9 @@ private
     players['villagers'] = (@players_count - wolves_count - 3) if @players_count - wolves_count > 3
 
     probabilities = {}
-    probabilities['wolves_win'] = (100.0*(best_wins[Game::WOLF] || 0)/@no_of_runs})
-    probabilities['villagers_win'] = (100.0*(best_wins[Game::VILLAGER] || 0)/@no_of_runs})
-    probabilities['draws'] = (100.0*(best_wins[Game::DRAW] || 0)/@no_of_runs})
+    probabilities['wolves_win'] = (100.0*(best_wins[Game::WOLF] || 0)/@no_of_runs)
+    probabilities['villagers_win'] = (100.0*(best_wins[Game::VILLAGER] || 0)/@no_of_runs)
+    probabilities['draws'] = (100.0*(best_wins[Game::DRAW] || 0)/@no_of_runs)
 
     hsh = {players: players, probabilities: probabilities}
 
