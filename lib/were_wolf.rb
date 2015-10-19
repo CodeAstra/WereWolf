@@ -1,9 +1,9 @@
-require "werewolf/version"
-require 'werewolf/game'
-require 'werewolf/game_simulator'
-require 'werewolf/game_suggestor'
+require 'were_wolf/version'
+require 'were_wolf/game'
+require 'were_wolf/game_simulator'
+require 'were_wolf/game_suggestor'
 
-module Werewolf
+module WereWolf
   class << self
     # Return:
     # => 0 if the game is draw

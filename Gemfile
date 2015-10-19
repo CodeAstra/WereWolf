@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in werewolf.gemspec
+# Specify your gem's dependencies in were_wolf.gemspec
 gemspec
