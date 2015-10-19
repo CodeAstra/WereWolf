@@ -1,7 +1,7 @@
 require "werewolf/version"
-require_relative 'game'
-require_relative 'game_simulator'
-require_relative 'game_suggestor'
+require 'werewolf/game'
+require 'werewolf/game_simulator'
+require 'werewolf/game_suggestor'
 
 module Werewolf
   class << self
