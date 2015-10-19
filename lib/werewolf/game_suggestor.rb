@@ -28,7 +28,7 @@ class GameSuggestor
     end
   end
 private
-  def result(wolves_count)
+  def result(wolves_count, best_wins)
     players = {}
     players['wolves'] = wolves_count
     players['cops'] = 1
