@@ -40,9 +40,9 @@ class PlayerCollection
   def alive_villagers
     @villagers
   end
-    @wolves
 
   def alive_wolves
+    @wolves
   end
 
   def alive_players
