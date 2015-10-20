@@ -16,10 +16,14 @@ class Cop < Villager
   end
 
   def accuse(players)
+    exceptions=[self]
+    tough_guy=players.tough_guy
+    exceptions+=[tough_guy] if tough_guy && tough_guy.isAttacked?
+
     if @identified_wolves.any?
       return @identified_wolves.sample
     else
-      return (players.alive_players - [self] - @identified_villagers).sample
+      return (players.alive_players - exceptions - @identified_villagers).sample
     end
   end
 

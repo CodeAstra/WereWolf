@@ -5,6 +5,7 @@ require_relative 'doctor'
 require_relative 'rogue'
 require_relative 'witch'
 require_relative 'little_girl'
+require_relative 'tough_guy'
 
 class PlayerCollection
   def initialize(no_of_wolves, no_of_villagers)
@@ -33,12 +34,16 @@ class PlayerCollection
       elsif i == 5
         villager = LittleGirl.new
         @little_girl = villager
+      elsif i == 6
+        villager = ToughGuy.new
+        @tough_guy = villager
       else
         villager = Villager.new
       end
       @villagers.push(villager)
       @players.push(villager)
     end
+    @tough_guy_attacked=false
   end
 
   def alive_villagers
@@ -52,6 +57,8 @@ class PlayerCollection
   def alive_players
     @players
   end
+
+
 
   def kill(player)
     if player.is_a?(Wolf)
@@ -71,6 +78,7 @@ class PlayerCollection
     @little_girl.forget(player) if @little_girl
   end
 
+
   def cop
     @cop
   end
@@ -89,6 +97,10 @@ class PlayerCollection
 
   def little_girl
     @little_girl
+  end
+
+  def tough_guy
+    @tough_guy
   end
 
 private
