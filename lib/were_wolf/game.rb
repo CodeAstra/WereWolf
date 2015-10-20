@@ -37,7 +37,10 @@ private
     saved_people = []
     # Doctor chooses to save a person
     doctor = @players.doctor
-    saved_people.push(doctor.choose_a_player_to_save(@players)) if doctor
+    if doctor
+      person_saved_by_doctor = doctor.choose_a_player_to_save(@players)
+      saved_people.push(person_saved_by_doctor)
+    end
     # Witch chooses to save a person once in the entire game
     witch = @players.witch
     person_saved_by_witch = witch.choose_a_player_to_save(@players) if witch
@@ -61,8 +64,17 @@ private
     end
 
     victims.uniq.each do |victim|
-      # Don't kill the person if the doctor saved the person
-      @players.kill(victim) unless saved_people.include?(victim)
+      if saved_people.include?(victim)
+        # Don't kill the person if the doctor saved the person
+        if victim == person_saved_by_doctor
+          doctor.remember_innocent(victim)
+        end
+        if victim == person_saved_by_witch
+          witch.remember_innocent(victim)
+        end
+      else
+        @players.kill(victim)
+      end
     end
   end
 
