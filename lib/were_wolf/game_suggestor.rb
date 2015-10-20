@@ -2,6 +2,7 @@ require_relative 'game'
 require_relative 'game_simulator'
 
 class GameSuggestor
+
   def initialize(num_of_players, no_of_runs)
     @players_count = num_of_players
     @no_of_runs = no_of_runs
@@ -36,7 +37,8 @@ private
     players['rogues'] = 1 if @players_count - wolves_count > 2
     players['witches'] = 1 if @players_count - wolves_count > 3
     players['little_girls'] = 1 if @players_count - wolves_count > 4
-    players['villagers'] = (@players_count - wolves_count - 5) if @players_count - wolves_count > 5
+    players['diseased'] = 1 if @players_count - wolves_count > 5
+    players['villagers'] = (@players_count - wolves_count - 6) if @players_count - wolves_count > 6
 
     probabilities = {}
     probabilities['wolves_win'] = (100.0*(best_wins[Game::WOLF] || 0)/@no_of_runs)
@@ -47,4 +49,10 @@ private
 
     return hsh
   end
+
+
+
+
 end
+
+
