@@ -23,7 +23,7 @@ class Witch < Doctor
 
     if choose_to_use_power?(players)
       @kill_power_used = true
-      return (players - [self]).sample
+      return (players.alive_players - [self]).sample
     else
       return
     end
