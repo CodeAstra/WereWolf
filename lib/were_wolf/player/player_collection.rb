@@ -5,6 +5,7 @@ require_relative 'doctor'
 require_relative 'rogue'
 require_relative 'witch'
 require_relative 'little_girl'
+require_relative 'diseased'
 
 class PlayerCollection
   def initialize(no_of_wolves, no_of_villagers)
@@ -33,6 +34,9 @@ class PlayerCollection
       elsif i == 5
         villager = LittleGirl.new
         @little_girl = villager
+      elsif i == 6
+        villager = Diseased.new
+        @diseased = villager
       else
         villager = Villager.new
       end
@@ -62,7 +66,8 @@ class PlayerCollection
       @doctor = nil if player.is_a?(Doctor)
       @rogue = nil if player.is_a?(Rogue)
       @witch = nil if player.is_a?(Witch)
-      @little_girl = nil if player.is_a?(LittleGirl)
+      @little_girl = nil if player.is_a?(LittleGirl)      
+      @diseased = nil if player.is_a?(Diseased)
       collection = @villagers
     end
     collection.delete(player)
@@ -89,6 +94,10 @@ class PlayerCollection
 
   def little_girl
     @little_girl
+  end
+
+  def diseased
+    @diseased
   end
 
 private
