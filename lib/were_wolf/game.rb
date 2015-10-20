@@ -17,9 +17,9 @@ class Game
       day_mode unless over?
     end
 
-    return DRAW if @draw
+    exit DRAW if @draw
 
-    return villagers_alive.empty? ? WOLF : VILLAGER
+    exit villagers_alive.empty? ? WOLF : VILLAGER
   end
 
 private
@@ -62,6 +62,8 @@ private
       second_victim = (villagers_alive - [little_girl]).sample
       victims.push(second_victim)
     end
+    #Check if the Tough Guy is attacked
+    tough_guy=@players.tough_guy
 
     victims.uniq.each do |victim|
       if saved_people.include?(victim)
@@ -73,7 +75,11 @@ private
           witch.remember_innocent(victim)
         end
       else
-        @players.kill(victim)
+        if (tough_guy && victim == tough_guy)
+          tough_guy.attacked
+        else
+          @players.kill(victim)
+        end
       end
     end
   end
@@ -96,6 +102,11 @@ private
     else
       @players.kill(victim)
     end
+
+    #Check if the tough guy has been attacked the previous night
+    #If attacked, he should not be dead by end of day_mode
+    tough_guy=@players.tough_guy
+    @players.kill(tough_guy) if tough_guy && tough_guy.isAttacked? 
   end
 
   def run_voting

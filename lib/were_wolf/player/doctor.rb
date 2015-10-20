@@ -22,8 +22,10 @@ class Doctor < Villager
 
   def accuse(players)
     forget_all! if players.alive_players.count == @known_innocents.count + 1
-
-    return (players.alive_players - [self] - @known_innocents).sample
+    exceptions=[self]
+    tough_guy=players.tough_guy
+    exceptions+=[tough_guy] if tough_guy && tough_guy.isAttacked?
+    return (players.alive_players - exceptions - @known_innocents).sample
   end
 
   def forget_all!
