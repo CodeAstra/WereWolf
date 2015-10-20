@@ -31,6 +31,9 @@ private
     # Cop identifies a person
     cop = @players.cop
     cop.identify_a_player(@players) if cop
+    little_girl = @players.little_girl
+    little_girl.identify_a_player(@players) if little_girl
+
     saved_people = []
     # Doctor chooses to save a person
     doctor = @players.doctor
@@ -39,16 +42,28 @@ private
     witch = @players.witch
     person_saved_by_witch = witch.choose_a_player_to_save(@players) if witch
     saved_people.push(person_saved_by_witch) if witch && person_saved_by_witch
+
+    victims = []
     # Wolves kill a villager
     wolves_victim = villagers_alive.sample
+    victims.push(wolves_victim)
+    if wolves_victim == little_girl
+      second_victim = (villagers_alive - [little_girl]).sample
+      victims.push(second_victim)
+    end
     # Rogue kills a players once in the entire game
     rogue = @players.rogue
     rogues_victim = rogue.choose_victim(@players) if rogue
+    victims.push(rogues_victim)
+    if rogues_victim == little_girl
+      second_victim = (villagers_alive - [little_girl]).sample
+      victims.push(second_victim)
+    end
 
-    # Don't kill the person if the doctor saved the person
-    @players.kill(wolves_victim) unless saved_people.include?(wolves_victim)
-    # Don't kill the person again, if the wolves have already killed the person
-    @players.kill(rogues_victim) unless (saved_people.include?(rogues_victim)) || (rogues_victim == wolves_victim)
+    victims.uniq.each do |victim|
+      # Don't kill the person if the doctor saved the person
+      @players.kill(victim) unless saved_people.include?(victim)
+    end
   end
 
   def day_mode

@@ -35,7 +35,8 @@ private
     players['doctors'] = 1 if @players_count - wolves_count > 1
     players['rogues'] = 1 if @players_count - wolves_count > 2
     players['witches'] = 1 if @players_count - wolves_count > 3
-    players['villagers'] = (@players_count - wolves_count - 4) if @players_count - wolves_count > 4
+    players['little_girls'] = 1 if @players_count - wolves_count > 4
+    players['villagers'] = (@players_count - wolves_count - 5) if @players_count - wolves_count > 5
 
     probabilities = {}
     probabilities['wolves_win'] = (100.0*(best_wins[Game::WOLF] || 0)/@no_of_runs)
