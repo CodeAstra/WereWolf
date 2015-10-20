@@ -46,10 +46,24 @@ private
     person_saved_by_witch = witch.choose_a_player_to_save(@players) if witch
     saved_people.push(person_saved_by_witch) if witch && person_saved_by_witch
 
+    # Check if wolves are sick
+    wolf_is_sick = false
+
+    if diseased
+      @wolves.each do |wolf|
+        if wolf.is_sick?
+          wolf_is_sick = true
+          wolf.is_well
+          break
+        end
+      end
+    end
+
     victims = []
+
     # Wolves kill a villager
-    wolves_victim = villagers_alive.sample
-    victims.push(wolves_victim)
+    wolves_victim = villagers_alive.sample unless wolf_is_sick
+    victims.push(wolves_victim) if wolves_victim
     if wolves_victim == little_girl
       second_victim = (villagers_alive - [little_girl]).sample
       victims.push(second_victim)

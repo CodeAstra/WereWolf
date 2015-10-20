@@ -2,6 +2,7 @@ require_relative 'game'
 require_relative 'game_simulator'
 
 class GameSuggestor
+
   def initialize(num_of_players, no_of_runs)
     @players_count = num_of_players
     @no_of_runs = no_of_runs
@@ -47,4 +48,10 @@ private
 
     return hsh
   end
+
+
+
+
 end
+
+
