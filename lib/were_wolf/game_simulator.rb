@@ -12,7 +12,7 @@ class GameSimulator
     processes=Array.new
     @no_of_runs.times do
       processes << Process.fork{
-        Game.new(@no_of_wolves, @no_of_villagers).simulate
+        Game.new(@no_of_wolves, @no_of_villagers).run
     }
     end
     processes.each do |pid|
