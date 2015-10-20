@@ -74,6 +74,7 @@ class PlayerCollection
     @players.delete(player)
     @cop.forget(player) if @cop
     @little_girl.forget(player) if @little_girl
+    @wolves[0].fall_sick if player.is_a?(Diseased)
   end
 
   def cop
@@ -98,6 +99,10 @@ class PlayerCollection
 
   def diseased
     @diseased
+  end
+
+  def wolves
+    @wolves
   end
 
 private
