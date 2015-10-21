@@ -58,13 +58,10 @@ class PlayerCollection
   end
 
   def kill(player)
-    puts "#{player} is going to die..."
-=begin
     if player.in_love_with?
       partner_in_crime = player.in_love_with?
       partner_in_crime.reset_love!
     end
-=end
     if player.is_a?(Wolf)
       collection = @wolves
       promote_rogue_to_wolf
@@ -81,10 +78,7 @@ class PlayerCollection
     @players.delete(player)
     @cop.forget(player) if @cop
     @little_girl.forget(player) if @little_girl
-
-=begin
     kill(partner_in_crime) if partner_in_crime
-=end
   end
 
   def cop

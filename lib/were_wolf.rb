@@ -31,5 +31,3 @@ module WereWolf
     end
   end
 end
-
-puts WereWolf.suggest(12, 100)
