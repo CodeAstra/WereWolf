@@ -12,6 +12,7 @@ class Game
   end
 
   def run
+    set_game_base
     until over?
       night_mode
       day_mode unless over?
@@ -121,6 +122,18 @@ private
     else
       return run_voting
     end
+  end
+
+  # Any action that needs to be taken only on the first night goes in this method
+  def set_game_base
+    # Cupid spreads the love amongst two players
+    cupid = @players.cupid
+    cupid.brood_lovebirds(@players) if cupid
+
+    # ================================================
+    # Add more one-time first-night-only actions below
+    # ================================================
+
   end
 
   def villagers_alive

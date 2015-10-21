@@ -5,6 +5,7 @@ require_relative 'doctor'
 require_relative 'rogue'
 require_relative 'witch'
 require_relative 'little_girl'
+require_relative 'cupid'
 
 class PlayerCollection
   def initialize(no_of_wolves, no_of_villagers)
@@ -33,6 +34,9 @@ class PlayerCollection
       elsif i == 5
         villager = LittleGirl.new
         @little_girl = villager
+      elsif i == 6
+        villager = Cupid.new
+        @cupid = villager
       else
         villager = Villager.new
       end
@@ -54,6 +58,13 @@ class PlayerCollection
   end
 
   def kill(player)
+    puts "#{player} is going to die..."
+=begin
+    if player.in_love_with?
+      partner_in_crime = player.in_love_with?
+      partner_in_crime.reset_love!
+    end
+=end
     if player.is_a?(Wolf)
       collection = @wolves
       promote_rogue_to_wolf
@@ -63,12 +74,17 @@ class PlayerCollection
       @rogue = nil if player.is_a?(Rogue)
       @witch = nil if player.is_a?(Witch)
       @little_girl = nil if player.is_a?(LittleGirl)
+      @cupid = nil if player.is_a?(Cupid)
       collection = @villagers
     end
     collection.delete(player)
     @players.delete(player)
     @cop.forget(player) if @cop
     @little_girl.forget(player) if @little_girl
+
+=begin
+    kill(partner_in_crime) if partner_in_crime
+=end
   end
 
   def cop
@@ -89,6 +105,10 @@ class PlayerCollection
 
   def little_girl
     @little_girl
+  end
+
+  def cupid
+    @cupid
   end
 
 private

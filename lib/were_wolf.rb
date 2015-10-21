@@ -1,7 +1,9 @@
-require 'were_wolf/version'
-require 'were_wolf/game'
-require 'were_wolf/game_simulator'
-require 'were_wolf/game_suggestor'
+#!/usr/bin/env ruby
+
+require_relative 'were_wolf/version'
+require_relative 'were_wolf/game'
+require_relative 'were_wolf/game_simulator'
+require_relative 'were_wolf/game_suggestor'
 
 module WereWolf
   class << self
@@ -29,3 +31,5 @@ module WereWolf
     end
   end
 end
+
+puts WereWolf.suggest(12, 100)
